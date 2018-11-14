@@ -1,0 +1,29 @@
+{
+  "name": "@fitbit-sdk/companion-gettext",
+  "version": "1.0.0",
+  "description": "Factory method when given a language table and a locale produces a gettext method",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "build": "rm -rf lib && tsc -p tsconfig.build.json",
+    "test": "jest",
+    "lint": "tslint --project ."
+  },
+  "author": "Fitbit, Inc.",
+  "license": "0BSD",
+  "repository": "github:Fitbit/sdk-companion-gettext",
+  "bugs": {
+    "url": "https://github.com/Fitbit/sdk-companion-gettext/issues"
+  },
+  "homepage": "https://github.com/Fitbit/sdk-companion-gettext#readme",
+  "devDependencies": {
+    "@types/jest": "^23.3.9",
+    "jest": "^23.6.0",
+    "ts-jest": "^23.10.4",
+    "tslint": "^5.11.0",
+    "tslint-config-airbnb": "^5.11.0",
+    "typescript": "^3.1.6"
+  },
+  "module": "lib/index.js"
+}

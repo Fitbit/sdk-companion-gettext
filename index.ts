@@ -17,15 +17,14 @@ export default function gettextFactory(
   currentLocale = defaultLocale,
   fallbackLocale = defaultLocale,
 ) {
+  const msgTable = langTable[currentLocale] ||
+    langTable[getLangCode(currentLocale)] ||
+    langTable[fallbackLocale] ||
+    {};
+
   // Return a named function so it shows up in stack traces.
   return function gettext(msgid: unknown): string {
     const msgidString = String(msgid);
-
-    const msgTable = langTable[currentLocale] ||
-      langTable[getLangCode(currentLocale)] ||
-      langTable[fallbackLocale] ||
-      {};
-
     return msgTable[msgidString] || msgidString;
   };
 }

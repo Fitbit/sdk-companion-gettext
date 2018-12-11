@@ -33,10 +33,6 @@ describe('gettext', () => {
     expect(gettextFactory({}, 'en-US')('msg1')).toBe('msg1');
   });
 
-  it('returns msgid if the msgid does not exist in any locale', () => {
-    expect(gettextFactory(defaultLanguage, 'fr-FR')('badMessage')).toBe('badMessage');
-  });
-
   it('returns msgid if the msgid does not exist in the specified or default language', () => {
     expect(gettextFactory(multipleLanguages, 'de-DE')('msg1')).toBe('msg1');
   });
@@ -49,7 +45,7 @@ describe('gettext', () => {
     expect(gettextFactory({}, 'en-US')({})).toBe('[object Object]');
   });
 
-  it('returns defaults to looking up strings in en-US', () => {
+  it('defaults to looking up strings in en-US', () => {
     expect(gettextFactory(defaultLanguage)('msg1')).toBe('This is an American English message');
   });
 });

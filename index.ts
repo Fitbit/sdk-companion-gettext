@@ -12,21 +12,20 @@ function getLangCode(tag: string) {
   return tag.substring(0, 2);
 }
 
-export default function gettextFactory(langTable: LanguageTable, currentLocale = defaultLocale) {
-  function getMessages(locale: string): MessageTable {
-    return langTable[locale] || {};
-  }
-
+export default function gettextFactory(
+  langTable: LanguageTable,
+  currentLocale = defaultLocale,
+  fallbackLocale = defaultLocale,
+) {
   // Return a named function so it shows up in stack traces.
   return function gettext(msgid: unknown): string {
     const msgidString = String(msgid);
 
-    return (
-      getMessages(currentLocale)[msgidString] ||
-      getMessages(getLangCode(currentLocale))[msgidString] ||
-      getMessages(defaultLocale)[msgidString] ||
-      getMessages(getLangCode(defaultLocale))[msgidString] ||
-      msgidString
-    );
+    const msgTable = langTable[currentLocale] ||
+      langTable[getLangCode(currentLocale)] ||
+      langTable[fallbackLocale] ||
+      {};
+
+    return msgTable[msgidString] || msgidString;
   };
 }

@@ -3,12 +3,6 @@ node_js:
   - "8.0.0"
   - "10.0.0"
 
-os:
-  - linux
-  - osx
-
-dist: trusty
-
 cache: yarn
 
 script:

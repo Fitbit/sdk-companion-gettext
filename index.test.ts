@@ -5,8 +5,8 @@ const multipleLanguages = {
     msg1: 'This is a France French message',
   },
   es: {
-    msg1: 'This is a Spanish message'
-  }
+    msg1: 'This is a Spanish message',
+  },
 };
 
 const defaultLanguage = {
@@ -16,18 +16,19 @@ const defaultLanguage = {
 };
 
 describe('gettext', () => {
-  it('returns the message for the specified locale if it exists', () => {
-    expect(gettextFactory(multipleLanguages, 'fr-FR')('msg1')).toBe('This is a France French message');
-  });
+  it('returns the message for the specified locale if it exists',
+     () => expect(gettextFactory(multipleLanguages, 'fr-FR')('msg1'))
+     .toBe('This is a France French message'),
+  );
 
   it('looks up the base language if the message cannot be found for the specific region', () => {
     expect(gettextFactory(multipleLanguages, 'es-ES')('msg1')).toBe('This is a Spanish message');
   });
 
-  it('looks up the message in the fallback language if it cannot be found for the given language', () => {
-    expect(gettextFactory(defaultLanguage, 'fr-FR', 'en-US')('msg1'))
-      .toBe('This is an American English message');
-  });
+  it('looks up the message in the fallback language if it cannot be found for the given language',
+     () => expect(gettextFactory(defaultLanguage, 'fr-FR', 'en-US')('msg1'))
+      .toBe('This is an American English message'),
+  );
 
   it('returns msgid if the language table is empty', () => {
     expect(gettextFactory({}, 'en-US')('msg1')).toBe('msg1');

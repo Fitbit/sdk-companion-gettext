@@ -4,7 +4,7 @@ const multipleLanguages = {
   'fr-FR': {
     msg1: 'This is a France French message',
   },
-  es: {
+  'es-ES': {
     msg1: 'This is a Spanish message',
   },
 };
@@ -21,9 +21,10 @@ describe('gettext', () => {
      .toBe('This is a France French message'),
   );
 
-  it('looks up the base language if the message cannot be found for the specific region', () => {
-    expect(gettextFactory(multipleLanguages, 'es-ES')('msg1')).toBe('This is a Spanish message');
-  });
+  it('returns a message for a matching language even if the locale differs',
+     () => expect(gettextFactory(multipleLanguages, 'fr-CA')('msg1'))
+     .toBe('This is a France French message'),
+  );
 
   it('looks up the message in the fallback language if it cannot be found for the given language',
      () => expect(gettextFactory(defaultLanguage, 'fr-FR', 'en-US')('msg1'))
@@ -39,7 +40,7 @@ describe('gettext', () => {
   });
 
   it('uses stringified msgid for lookups', () => {
-    expect(gettextFactory({ en: { '[object Object]': 'foo' } }, 'en-US')({})).toBe('foo');
+    expect(gettextFactory({ 'en-US': { '[object Object]': 'foo' } })({})).toBe('foo');
   });
 
   it('returns stringified msgid as the fallback', () => {

@@ -13,21 +13,9 @@ function getLangCode(tag: string) {
 }
 
 /**
- * FbOS 3.0 and backwards only supports the following locales:
-  - de-DE
-  - en-US
-  - es-ES
-  - fr-FR
-  - it-IT
-  - ja-JP
-  - ko-KR
-  - nl-NL
-  - sv-SE
-  - zh-CN
-  - zh-TW
-
-  In order to provide predictable behaviour across FW and mobile, we map
-  site provided locales settings onto this subset of locales.
+ * FbOS 3.0 and backwards only supports the following locales.
+ * In order to provide predictable behaviour across FW and mobile, we map
+ * site provided locales settings onto this subset of locales.
  * */
 
 const FBOS3_SUPPORTED_LOCALES = [

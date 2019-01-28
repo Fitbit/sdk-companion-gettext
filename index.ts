@@ -29,16 +29,32 @@ function getLangCode(tag: string) {
   In order to provide predictable behaviour across FW and mobile, we map
   site provided locales settings onto this subset of locales.
  * */
-function mapToDeviceSupportedLocale(tag: string, fallbackLocale: string) {
+
+const FBOS3_SUPPORTED_LOCALES = [
+  'de-DE',
+  'en-US',
+  'es-ES',
+  'fr-FR',
+  'it-IT',
+  'ja-JP',
+  'ko-KR',
+  'nl-NL',
+  'sv-SE',
+  'zh-CN',
+  'zh-TW',
+];
+
+function mapToDeviceSupportedLocale(tag: string) {
+  if (FBOS3_SUPPORTED_LOCALES.indexOf(tag) !== -1) {
+    return tag;
+  }
+
   if (tag === 'en-SE') return 'sv-SE';
   if (tag === 'en-NL') return 'nl-NL';
 
   // For iOS
   if (tag === 'zh-Hant') return 'zh-TW';
-  if (tag === 'zh-Hans') return 'zh-CH';
-
-  // For Android
-  if (tag === 'zh-CH' || tag === 'zh-TW') return tag;
+  if (tag === 'zh-Hans') return 'zh-CN';
 
   const lang = getLangCode(tag);
 
@@ -47,9 +63,8 @@ function mapToDeviceSupportedLocale(tag: string, fallbackLocale: string) {
   if (lang === 'es') return 'es-ES';
   if (lang === 'fr') return 'fr-FR';
   if (lang === 'it') return 'it-IT';
-  if (lang === 'en') return 'en-US';
 
-  return fallbackLocale;
+  return tag;
 }
 
 export default function gettextFactory(
@@ -57,7 +72,7 @@ export default function gettextFactory(
   currentLocale = defaultLocale,
   fallbackLocale = defaultLocale,
 ) {
-  const lookupLocale = mapToDeviceSupportedLocale(currentLocale, fallbackLocale);
+  const lookupLocale = mapToDeviceSupportedLocale(currentLocale);
   const msgTable = langTable[lookupLocale] ||
     langTable[fallbackLocale] ||
     {};

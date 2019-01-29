@@ -1,17 +1,38 @@
 import gettextFactory from './index';
 
 const multipleLanguages = {
+  'en-US': {
+    msg1: 'This is a American English message',
+  },
   'fr-FR': {
     msg1: 'This is a France French message',
   },
-  es: {
+  'es-ES': {
     msg1: 'This is a Spanish message',
+  },
+  'sv-SE': {
+    msg1: 'This is a Swedish message',
+  },
+  'nl-NL': {
+    msg1: 'This is a Dutch message',
+  },
+  'de-DE': {
+    msg1: 'This is a German message',
+  },
+  'it-IT': {
+    msg1: 'This is a Italian message',
+  },
+  'zh-CN': {
+    msg1: 'This is a Simplified Chinese message',
+  },
+  'zh-TW': {
+    msg1: 'This is a Traditional Chinese message',
   },
 };
 
 const defaultLanguage = {
   'en-US': {
-    msg1: 'This is an American English message',
+    msg1: 'This is a American English message',
   },
 };
 
@@ -21,13 +42,14 @@ describe('gettext', () => {
      .toBe('This is a France French message'),
   );
 
-  it('looks up the base language if the message cannot be found for the specific region', () => {
-    expect(gettextFactory(multipleLanguages, 'es-ES')('msg1')).toBe('This is a Spanish message');
-  });
+  it('returns a message for a matching language even if the locale differs',
+     () => expect(gettextFactory(multipleLanguages, 'fr-CA')('msg1'))
+     .toBe('This is a France French message'),
+  );
 
   it('looks up the message in the fallback language if it cannot be found for the given language',
      () => expect(gettextFactory(defaultLanguage, 'fr-FR', 'en-US')('msg1'))
-      .toBe('This is an American English message'),
+      .toBe('This is a American English message'),
   );
 
   it('returns msgid if the language table is empty', () => {
@@ -35,11 +57,11 @@ describe('gettext', () => {
   });
 
   it('returns msgid if the msgid does not exist in the specified or default language', () => {
-    expect(gettextFactory(multipleLanguages, 'de-DE')('msg1')).toBe('msg1');
+    expect(gettextFactory(multipleLanguages, 'is-DA', 'is-DA')('msg1')).toBe('msg1');
   });
 
   it('uses stringified msgid for lookups', () => {
-    expect(gettextFactory({ en: { '[object Object]': 'foo' } }, 'en-US')({})).toBe('foo');
+    expect(gettextFactory({ 'en-US': { '[object Object]': 'foo' } })({})).toBe('foo');
   });
 
   it('returns stringified msgid as the fallback', () => {
@@ -47,6 +69,21 @@ describe('gettext', () => {
   });
 
   it('defaults to looking up strings in en-US', () => {
-    expect(gettextFactory(defaultLanguage)('msg1')).toBe('This is an American English message');
+    expect(gettextFactory(defaultLanguage)('msg1')).toBe('This is a American English message');
   });
+
+  it.each([
+    ['en-SE', 'sv-SE', 'Swedish'],
+    ['en-NL', 'nl-NL', 'Dutch'],
+    ['zh-Hant', 'zh-TW', 'Traditional Chinese'],
+    ['zh-Hans', 'zh-CN', 'Simplified Chinese'],
+    ['en-GB', 'en-US', 'American English'],
+    ['fr-CA', 'fr-FR', 'France French'],
+    ['es-PY', 'es-ES', 'Spanish'],
+    ['de-GSW', 'de-DE', 'German'],
+    ['it-SC', 'it-IT', 'Italian'],
+  ])('maps %s to %s', (from, to, expectedMessage) =>
+    expect(gettextFactory(multipleLanguages, from)('msg1'))
+      .toBe(`This is a ${expectedMessage} message`),
+  );
 });

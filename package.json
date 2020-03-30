@@ -1,6 +1,6 @@
 {
   "name": "@fitbit-sdk/companion-gettext",
-  "version": "3.0.2",
+  "version": "3.1.0",
   "description": "Factory method when given a language table and a locale produces a gettext method",
   "files": [
     "lib"

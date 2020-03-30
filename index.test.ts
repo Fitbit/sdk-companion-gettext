@@ -28,6 +28,24 @@ const multipleLanguages = {
   'zh-TW': {
     msg1: 'This is a Traditional Chinese message',
   },
+  'pt-BR': {
+    msg1: 'This is a Portugese (Brazillian) message',
+  },
+  'id-ID': {
+    msg1: 'This is a Indonesian (Bahasa) message',
+  },
+  'ro-RO': {
+    msg1: 'This is a Romanian message',
+  },
+  'ru-RU': {
+    msg1: 'This is a Russian message',
+  },
+  'pl-PL': {
+    msg1: 'This is a Polish message',
+  },
+  'cs-CZ': {
+    msg1: 'This is a Czech message',
+  },
 };
 
 const defaultLanguage = {
@@ -82,6 +100,14 @@ describe('gettext', () => {
     ['es-PY', 'es-ES', 'Spanish'],
     ['de-GSW', 'de-DE', 'German'],
     ['it-SC', 'it-IT', 'Italian'],
+    ['pt-PT', 'pt-BR', 'Portugese (Brazillian)'],
+    ['pt-BR', 'pt-BR', 'Portugese (Brazillian)'],
+    ['id-ID', 'id-ID', 'Indonesian (Bahasa)'],
+    ['ro-RO', 'ro-RO', 'Romanian'],
+    ['ru-BY', 'ru-RU', 'Russian'],
+    ['ru-RU', 'ru-RU', 'Russian'],
+    ['pl-PL', 'pl-PL', 'Polish'],
+    ['cs-CZ', 'cs-CZ', 'Czech'],
   ])('maps %s to %s', (from, to, expectedMessage) =>
     expect(gettextFactory(multipleLanguages, from)('msg1'))
       .toBe(`This is a ${expectedMessage} message`),

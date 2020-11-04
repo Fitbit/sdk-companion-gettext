@@ -1,9 +1,12 @@
 {
-  "extends": "tslint-config-airbnb",
+  "extends": ["tslint-config-airbnb", "tslint-config-prettier"],
   "rules": {
     "no-inferrable-types": true,
-    "import-name": [true, {
-      "index": "gettextFactory"
-    }]
+    "import-name": [
+      true,
+      {
+        "index": "gettextFactory"
+      }
+    ]
   }
 }

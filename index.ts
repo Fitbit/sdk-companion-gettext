@@ -39,9 +39,7 @@ export default function gettextFactory(
   fallbackLocale = defaultLocale,
 ) {
   const lookupLocale = mapToDeviceSupportedLocale(currentLocale);
-  const msgTable = langTable[lookupLocale] ||
-    langTable[fallbackLocale] ||
-    {};
+  const msgTable = langTable[lookupLocale] || langTable[fallbackLocale] || {};
 
   // Return a named function so it shows up in stack traces.
   return function gettext(msgid: unknown): string {

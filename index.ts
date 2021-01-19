@@ -15,6 +15,7 @@ function getLangCode(tag: string) {
 function mapToDeviceSupportedLocale(tag: string) {
   if (tag === 'en-SE') return 'sv-SE';
   if (tag === 'en-NL') return 'nl-NL';
+  if (tag === 'en-NO') return 'nb-NO';
 
   // For iOS
   if (tag === 'zh-Hant') return 'zh-TW';

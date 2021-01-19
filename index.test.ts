@@ -46,6 +46,9 @@ const multipleLanguages = {
   'cs-CZ': {
     msg1: 'This is a Czech message',
   },
+  'nb-NO': {
+    msg1: 'This is a Norwegian (Bokmål) message',
+  },
 };
 
 const defaultLanguage = {
@@ -114,6 +117,7 @@ describe('gettext', () => {
     ['ru-RU', 'ru-RU', 'Russian'],
     ['pl-PL', 'pl-PL', 'Polish'],
     ['cs-CZ', 'cs-CZ', 'Czech'],
+    ['en-NO', 'nb-NO', 'Norwegian (Bokmål)'],
   ])('maps %s to %s', (from, to, expectedMessage) =>
     expect(gettextFactory(multipleLanguages, from)('msg1')).toBe(
       `This is a ${expectedMessage} message`,
